@@ -1,157 +1,265 @@
-local FunGuiOfFun = Instance.new("ScreenGui")
-local CodeBox = Instance.new("TextBox")
-local UICorner = Instance.new("UICorner")
-local Execute = Instance.new("TextButton")
-local UICorner_2 = Instance.new("UICorner")
-local ShowHide = Instance.new("Folder")
-local Show = Instance.new("TextButton")
-local UICorner_3 = Instance.new("UICorner")
-local Hide = Instance.new("TextButton")
-local UICorner_4 = Instance.new("UICorner")
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local UIS = game:GetService("UserInputService")
+local StarterGui = game:GetService("StarterGui")
+local TweenService = game:GetService("TweenService")
+local TeleportService = game:GetService("TeleportService")
 
+local LocalPlayer = Players.LocalPlayer
+local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
 
-FunGuiOfFun.Name = "FunGuiOfFun"
-FunGuiOfFun.ResetOnSpawn = false
-FunGuiOfFun.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-FunGuiOfFun.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+pcall(function()
+	PlayerGui.InfYieldRemakeUI:Destroy()
+end)
 
-CodeBox.Name = "CodeBox"
-CodeBox.Parent = FunGuiOfFun
-CodeBox.BackgroundColor3 = Color3.fromRGB(245, 139, 87)
-CodeBox.BorderColor3 = Color3.fromRGB(0, 0, 0)
-CodeBox.BorderSizePixel = 0
-CodeBox.Position = UDim2.new(0.793388426, 0, 0.282411158, 0)
-CodeBox.Size = UDim2.new(0, 287, 0, 131)
-CodeBox.ClearTextOnFocus = false
-CodeBox.Font = Enum.Font.Cartoon
-CodeBox.MultiLine = true
-CodeBox.PlaceholderColor3 = Color3.fromRGB(203, 203, 203)
-CodeBox.PlaceholderText = "Please unfocus this text box before clicking execute"
-CodeBox.Text = ""
-CodeBox.TextColor3 = Color3.fromRGB(255, 255, 255)
-CodeBox.TextSize = 14.000
-CodeBox.TextWrapped = true
-CodeBox.TextXAlignment = Enum.TextXAlignment.Left
-CodeBox.TextYAlignment = Enum.TextYAlignment.Top
+local ScreenGui = Instance.new("ScreenGui", PlayerGui)
+ScreenGui.Name = "InfYieldRemakeUI"
+ScreenGui.ResetOnSpawn = false
 
-UICorner.Parent = CodeBox
+local TextBox = Instance.new("TextBox", ScreenGui)
+TextBox.Position = UDim2.new(0.3, 0, 0.9, 0)
+TextBox.Size = UDim2.new(0.4, 0, 0.05, 0)
+TextBox.PlaceholderText = "Type command"
+TextBox.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+TextBox.BorderSizePixel = 0
+TextBox.TextColor3 = Color3.new(1, 1, 1)
+TextBox.Font = Enum.Font.SourceSans
+TextBox.TextSize = 20
+TextBox.ClearTextOnFocus = false
 
-Execute.Name = "Execute"
-Execute.Parent = FunGuiOfFun
-Execute.BackgroundColor3 = Color3.fromRGB(245, 139, 87)
-Execute.BorderColor3 = Color3.fromRGB(0, 0, 0)
-Execute.BorderSizePixel = 0
-Execute.Position = UDim2.new(0.793388426, 0, 0.457627118, 0)
-Execute.Size = UDim2.new(0, 287, 0, 50)
-Execute.Font = Enum.Font.Cartoon
-Execute.Text = "Execute 🙉 & Inject 🌹🩹"
-Execute.TextColor3 = Color3.fromRGB(255, 255, 255)
-Execute.TextScaled = true
-Execute.TextSize = 14.000
-Execute.TextStrokeColor3 = Color3.fromRGB(255, 255, 255)
-Execute.TextWrapped = true
-
-UICorner_2.Parent = Execute
-
-ShowHide.Name = "Show&Hide"
-ShowHide.Parent = FunGuiOfFun
-
-Show.Name = "Show"
-Show.Parent = ShowHide
-Show.BackgroundColor3 = Color3.fromRGB(175, 98, 62)
-Show.BorderColor3 = Color3.fromRGB(0, 0, 0)
-Show.BorderSizePixel = 0
-Show.Position = UDim2.new(0.897647798, 0, 0.135593221, 0)
-Show.Size = UDim2.new(0, 123, 0, 50)
-Show.Font = Enum.Font.Cartoon
-Show.Text = "Show"
-Show.TextColor3 = Color3.fromRGB(255, 255, 255)
-Show.TextScaled = true
-Show.TextSize = 14.000
-Show.TextStrokeColor3 = Color3.fromRGB(255, 255, 255)
-Show.TextWrapped = true
-
-UICorner_3.Parent = Show
-
-Hide.Name = "Hide"
-Hide.Parent = ShowHide
-Hide.BackgroundColor3 = Color3.fromRGB(175, 98, 62)
-Hide.BorderColor3 = Color3.fromRGB(0, 0, 0)
-Hide.BorderSizePixel = 0
-Hide.Position = UDim2.new(0.897647798, 0, 0.209443092, 0)
-Hide.Size = UDim2.new(0, 123, 0, 50)
-Hide.Font = Enum.Font.Cartoon
-Hide.Text = "Hide"
-Hide.TextColor3 = Color3.fromRGB(255, 255, 255)
-Hide.TextScaled = true
-Hide.TextSize = 14.000
-Hide.TextStrokeColor3 = Color3.fromRGB(255, 255, 255)
-Hide.TextWrapped = true
-
-UICorner_4.Parent = Hide
-
-local function ZDCFE_fake_script()
-	local script = Instance.new('LocalScript', Execute)
-
-	local StarterGui = game:GetService("StarterGui")
-	
-	local function fail()
+local function notify(msg)
+	pcall(function()
 		StarterGui:SetCore("SendNotification", {
-			Title = "There is no backdoored remotes buddy",
-			Text = "I hate you",
-			Duration = 5,
+			Title = "InfRemake";
+			Text = msg;
+			Duration = 4;
 		})
-	end
-	
-	local function fire(text)
-		local found = false
-		for i,v in pairs(game.Workspace:GetDescendants()) do
-			if v:IsA("RemoteEvent") and v.Name == "GAVNBYBIR8IPDHS" then
-				if v.Name == "GAVNBYBIR8IPDHS" then
-					found = true
-					local event = v
-					event:FireServer(text)
-					StarterGui:SetCore("SendNotification", {
-						Title = "Script Executed",
-						Text = "This is some good devlish style stuff buddy",
-						Duration = 5,
-					})
-					break
-				end
-			end	
-		end
-		if not found then
-			task.spawn(fail)
-		end
-	end
-	
-	script.Parent.MouseButton1Down:Connect(function(clicked)
-		local txt = script.Parent.Parent.CodeBox.Text
-		fire(txt)
 	end)
 end
-coroutine.wrap(ZDCFE_fake_script)()
-local function UWNZNE_fake_script()
-	local script = Instance.new('LocalScript', Show)
 
-	script.Parent.MouseButton1Down:Connect(function(clicked)
-		for i,v in pairs(script.Parent.Parent.Parent:GetChildren()) do
-			if v:IsA("TextButton") or v:IsA("TextBox") then
-				v.Visible = true
+local prefixEnabled = true
+
+local function createButton(name, pos, callback)
+	local btn = Instance.new("TextButton")
+	btn.Name = name
+	btn.Text = name
+	btn.Size = UDim2.new(0.1, 0, 0.05, 0)
+	btn.Position = pos
+	btn.Parent = ScreenGui
+	btn.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+	btn.TextColor3 = Color3.new(1,1,1)
+	btn.Font = Enum.Font.SourceSans
+	btn.TextSize = 16
+	btn.MouseButton1Click:Connect(callback)
+end
+
+createButton("Disable Prefix", UDim2.new(0.71, 0, 0.9, 0), function()
+	prefixEnabled = false
+	notify("Prefix disabled. Type commands without ';'")
+end)
+
+createButton("Enable Prefix", UDim2.new(0.82, 0, 0.9, 0), function()
+	prefixEnabled = true
+	notify("Prefix enabled. Use ';' before commands.")
+end)
+
+local commands = {}
+
+-- Fly
+do
+	local flying = false
+	local keys = {}
+	local bv, bg, moveLoop
+	local inputBeganConn, inputEndedConn
+
+	local function enableFly()
+		local hrp = LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+		if not hrp then return end
+
+		bv = Instance.new("BodyVelocity", hrp)
+		bv.MaxForce = Vector3.new(1e9, 1e9, 1e9)
+		bv.Velocity = Vector3.zero
+
+		bg = Instance.new("BodyGyro", hrp)
+		bg.MaxTorque = Vector3.new(1e9, 1e9, 1e9)
+		bg.CFrame = hrp.CFrame
+
+		moveLoop = RunService.RenderStepped:Connect(function()
+			local cam = workspace.CurrentCamera
+			local move = Vector3.zero
+			local speed = 80
+
+			if keys[Enum.KeyCode.W] then move += cam.CFrame.LookVector end
+			if keys[Enum.KeyCode.S] then move -= cam.CFrame.LookVector end
+			if keys[Enum.KeyCode.A] then move -= cam.CFrame.RightVector end
+			if keys[Enum.KeyCode.D] then move += cam.CFrame.RightVector end
+			if keys[Enum.KeyCode.E] then move += Vector3.new(0, 1, 0) end
+			if keys[Enum.KeyCode.Q] then move -= Vector3.new(0, 1, 0) end
+
+			if move.Magnitude > 0 then move = move.Unit else move = Vector3.zero end
+
+			bv.Velocity = move * speed
+			bg.CFrame = cam.CFrame
+		end)
+	end
+
+	local function disableFly()
+		if bv then bv:Destroy() end
+		if bg then bg:Destroy() end
+		if moveLoop then moveLoop:Disconnect() end
+	end
+
+	commands["fly"] = function()
+		if inputBeganConn then inputBeganConn:Disconnect() end
+		if inputEndedConn then inputEndedConn:Disconnect() end
+
+		flying = false
+		keys = {}
+
+		inputBeganConn = UIS.InputBegan:Connect(function(input, g)
+			if g then return end
+			keys[input.KeyCode] = true
+			if input.KeyCode == Enum.KeyCode.X then
+				flying = not flying
+				if flying then enableFly() notify("Fly ON")
+				else disableFly() notify("Fly OFF") end
+			end
+		end)
+
+		inputEndedConn = UIS.InputEnded:Connect(function(input)
+			keys[input.KeyCode] = false
+		end)
+
+		notify("Fly ready. Press X to toggle.")
+	end
+end
+
+-- Core Commands
+commands["speed"] = function(arg)
+	local spd = tonumber(arg) or 50
+	LocalPlayer.Character.Humanoid.WalkSpeed = spd
+	notify("Speed set to " .. spd)
+end
+
+commands["jump"] = function(arg)
+	local jmp = tonumber(arg) or 100
+	LocalPlayer.Character.Humanoid.JumpPower = jmp
+	notify("JumpPower set to " .. jmp)
+end
+
+commands["god"] = function()
+	local h = LocalPlayer.Character:FindFirstChild("Humanoid")
+	if h then
+		h.MaxHealth = math.huge
+		h.Health = math.huge
+		notify("Godmode ON")
+	end
+end
+
+commands["reset"] = function()
+	LocalPlayer.Character:BreakJoints()
+	notify("Resetting...")
+end
+
+commands["tp"] = function(target)
+	if not target then return end
+	for _, plr in pairs(Players:GetPlayers()) do
+		if plr.Name:lower():sub(1, #target) == target:lower() then
+			local targetHRP = plr.Character and plr.Character:FindFirstChild("HumanoidRootPart")
+			if targetHRP then
+				LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = targetHRP.CFrame + Vector3.new(0, 5, 0)
+				notify("Teleported to " .. plr.Name)
+				return
 			end
 		end
-	end)
+	end
+	notify("Player not found.")
 end
-coroutine.wrap(UWNZNE_fake_script)()
-local function AVPDJ_fake_script()
-	local script = Instance.new('LocalScript', Hide)
 
-	script.Parent.MouseButton1Down:Connect(function(clicked)
-		for i,v in pairs(script.Parent.Parent.Parent:GetChildren()) do
-			if v:IsA("TextButton") or v:IsA("TextBox") then
-				v.Visible = false
-			end
-		end
-	end)
+commands["sit"] = function()
+	LocalPlayer.Character.Humanoid.Sit = true
+	notify("You are now sitting.")
 end
-coroutine.wrap(AVPDJ_fake_script)()
+
+commands["tweentpposition"] = function(arg)
+	local x, y, z = arg:match("([^%s]+) ([^%s]+) ([^%s]+)")
+	if x and y and z then
+		local goal = Vector3.new(tonumber(x), tonumber(y), tonumber(z))
+		local root = LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+		if root then
+			local tween = TweenService:Create(root, TweenInfo.new(1, Enum.EasingStyle.Linear), {CFrame = CFrame.new(goal)})
+			tween:Play()
+			notify("Tween TP started.")
+		end
+	else
+		notify("Usage: tweentpposition x y z")
+	end
+end
+
+commands["rejoin"] = function()
+	TeleportService:TeleportToPlaceInstance(game.PlaceId, game.JobId, LocalPlayer)
+end
+
+commands["console"] = function()
+	game:GetService("StarterGui"):SetCore("DevConsoleVisible", true)
+end
+
+commands["esp"] = function()
+	for _, plr in pairs(Players:GetPlayers()) do
+		if plr ~= LocalPlayer and plr.Character and plr.Character:FindFirstChild("HumanoidRootPart") then
+			local adorn = Instance.new("BoxHandleAdornment")
+			adorn.Size = Vector3.new(4, 6, 2)
+			adorn.Adornee = plr.Character.HumanoidRootPart
+			adorn.Color3 = Color3.new(1, 0, 0)
+			adorn.AlwaysOnTop = true
+			adorn.ZIndex = 10
+			adorn.Parent = plr.Character
+		end
+	end
+	notify("ESP enabled.")
+end
+
+commands["explorer"] = function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/peyton2465/Dex/master/out.lua"))()
+end
+
+commands["help"] = function()
+	notify("Commands: fly, speed, jump, god, reset, tp, sit, esp, tweentpposition, rejoin, console, explorer, help")
+end
+
+TextBox.FocusLost:Connect(function(enter)
+	if not enter then return end
+
+	local msg = TextBox.Text
+	local isCommand = false
+
+	if prefixEnabled then
+		if msg:sub(1, 1) == ";" then
+			msg = msg:sub(2)
+			isCommand = true
+		else
+			notify("Prefix is enabled. Use ';' before commands.")
+		end
+	else
+		isCommand = true
+	end
+
+	if isCommand then
+		local args = msg:split(" ")
+		local cmd = args[1]:lower()
+		table.remove(args, 1)
+		local arg = table.concat(args, " ")
+
+		if commands[cmd] then
+			pcall(function()
+				commands[cmd](arg)
+			end)
+		else
+			notify("Unknown command: " .. cmd)
+		end
+	end
+
+	TextBox.Text = ""
+end)
+
+notify("InfRemake loaded. Type ;fly or fly to test fly mode.")
