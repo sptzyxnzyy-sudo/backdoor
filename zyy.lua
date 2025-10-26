@@ -87,7 +87,7 @@ end
 
 local function newNotification(msgText)
 	return starterGui:SetCore("SendNotification", {
-		Title = "[FUCK THE WHAT]",
+		Title = "[SPTzY THE WHAT]",
 		Text = msgText,
 		Duration = (5 + (#msgText / 80))
 	})
